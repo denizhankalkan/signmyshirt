@@ -196,4 +196,4 @@ MIT License
 
 Denizhan Kalkan — denizhankalkan@outlook.com
 
-Project Link: [https://github.com/denizhankalkan/sign-my-shirt](https://github.com/denizhankalkan/sign-my-shirt)
+Project Link: [https://github.com/denizhankalkan/sign-my-shirt](https://github.com/denizhankalkan/signmyshirt)
