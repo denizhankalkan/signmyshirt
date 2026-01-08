@@ -1,40 +1,59 @@
 # 👕 Sign My Shirt
 
-Dijital mezuniyet gömleği uygulaması. Arkadaşlarınla paylaş, gömleğine imza topla!
+A digital graduation shirt signing platform. Create your virtual shirt, share the link, and collect messages from friends and classmates.
 
 ![Sign My Shirt Preview](preview.png)
 
-## ✨ Özellikler
+## Overview
 
-- 🎨 Gerçekçi uzun kollu gömlek tasarımı
-- ✍️ Sürükle-bırak ile mesajları taşıma
-- 🔄 Firebase ile gerçek zamanlı senkronizasyon
-- 📱 Mobil uyumlu (responsive) tasarım
-- 🔗 Kolay paylaşılabilir linkler
-- 🏫 Okul logosu ekleme desteği
-- 🎨 8 farklı kalem rengi
+Sign My Shirt transforms the traditional graduation shirt signing experience into a digital format. Users create personalized shirts, share unique links, and allow others to leave messages — all synchronized in real-time.
 
-## 🚀 Kurulum
+## Features
 
-### 1. Projeyi klonla
+- **Realistic Shirt Design** — SVG-based long-sleeve shirt with collar, cuffs, buttons, and pocket details
+- **Drag & Drop** — Reposition messages anywhere on the shirt
+- **Real-time Sync** — Firebase-powered instant updates across all devices
+- **Mobile Responsive** — Optimized for both desktop and mobile experiences
+- **Shareable Links** — Unique URL for each shirt
+- **School Logo Support** — Dedicated area for custom school branding
+- **Color Selection** — 8 pen color options for signatures
+
+## Tech Stack
+
+| Technology | Purpose |
+|------------|---------|
+| React 18 | Frontend framework |
+| Firebase Firestore | Real-time database |
+| React Router v6 | Client-side routing |
+| nanoid | Unique ID generation |
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js 16+
+- npm or yarn
+- Firebase account
+
+### Installation
 
 ```bash
-git clone https://github.com/kullaniciadin/sign-my-shirt.git
+git clone https://github.com/yourusername/sign-my-shirt.git
 cd sign-my-shirt
 npm install
 ```
 
-### 2. Firebase Projesi Oluştur
+### Firebase Setup
 
-1. [Firebase Console](https://console.firebase.google.com/)'a git
-2. "Add project" ile yeni proje oluştur
-3. Firestore Database'i etkinleştir (test mode)
-4. Project Settings > Your apps > Web app ekle
-5. Config bilgilerini kopyala
+1. Navigate to [Firebase Console](https://console.firebase.google.com/)
+2. Create a new project
+3. Enable Firestore Database (start in test mode)
+4. Go to Project Settings > Your apps > Add web app
+5. Copy the configuration object
 
-### 3. Environment Variables
+### Environment Configuration
 
-Proje kök dizininde `.env` dosyası oluştur:
+Create a `.env` file in the project root:
 
 ```env
 REACT_APP_FIREBASE_API_KEY=your_api_key
@@ -45,41 +64,39 @@ REACT_APP_FIREBASE_MESSAGING_SENDER_ID=your_sender_id
 REACT_APP_FIREBASE_APP_ID=your_app_id
 ```
 
-### 4. Firestore Güvenlik Kuralları
+### Firestore Security Rules
 
-Firebase Console > Firestore > Rules:
+Apply the following rules in Firebase Console > Firestore > Rules:
 
 ```javascript
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-    // Gömlekler - herkes okuyabilir, oluşturabilir
     match /shirts/{shirtId} {
       allow read: if true;
       allow create: if true;
       allow update: if true;
       
-      // İmzalar - herkes okuyabilir ve ekleyebilir
       match /signatures/{signatureId} {
         allow read: if true;
         allow create: if true;
         allow update: if true;
-        allow delete: if false; // Silme kapalı
+        allow delete: if false;
       }
     }
   }
 }
 ```
 
-### 5. Çalıştır
+### Run Development Server
 
 ```bash
 npm start
 ```
 
-Tarayıcıda `http://localhost:3000` adresinde açılacak.
+Application will be available at `http://localhost:3000`
 
-## 📁 Proje Yapısı
+## Project Structure
 
 ```
 sign-my-shirt/
@@ -87,74 +104,96 @@ sign-my-shirt/
 │   └── index.html
 ├── src/
 │   ├── components/
-│   │   ├── Home.jsx          # Ana sayfa - gömlek oluşturma
-│   │   └── SignMyShirt.jsx   # Gömlek görüntüleme/imzalama
+│   │   ├── Home.jsx              # Landing page & shirt creation
+│   │   └── SignMyShirt.jsx       # Main shirt view & signing
 │   ├── firebase/
-│   │   ├── config.js         # Firebase config
-│   │   └── hooks.js          # Firebase hooks & functions
-│   ├── App.js                # Router
-│   └── index.js              # Entry point
-├── .env                      # Environment variables (oluşturman gerek)
+│   │   ├── config.js             # Firebase initialization
+│   │   └── hooks.js              # Custom hooks & database operations
+│   ├── App.js                    # Route configuration
+│   └── index.js                  # Application entry point
+├── .env.example
 ├── .gitignore
 ├── package.json
 └── README.md
 ```
 
-## 🌐 Deploy (Vercel)
+## Deployment
 
-1. [Vercel](https://vercel.com)'e GitHub ile giriş yap
-2. "Import Project" > GitHub reposunu seç
-3. Environment Variables ekle (Firebase config)
-4. Deploy!
+### Vercel (Recommended)
 
-## 🛠️ Teknolojiler
+1. Connect your GitHub repository to [Vercel](https://vercel.com)
+2. Import the project
+3. Add environment variables in project settings
+4. Deploy
 
-- **React** - Frontend framework
-- **Firebase Firestore** - Realtime database
-- **React Router** - Routing
-- **nanoid** - Unique ID generation
+### Firebase Hosting
 
-## 📱 Kullanım
+```bash
+npm install -g firebase-tools
+firebase login
+firebase init hosting
+npm run build
+firebase deploy
+```
 
-1. Ana sayfada ismini gir
-2. Okul adı ve mezuniyet yılını seç (opsiyonel)
-3. "Gömleğimi Oluştur" butonuna tıkla
-4. Oluşan linki arkadaşlarınla paylaş
-5. Arkadaşların gömleğine mesaj yazabilir!
+## Usage
 
-## 🎨 Özelleştirme
+1. Enter your name on the homepage
+2. Optionally add school name and graduation year
+3. Click "Create My Shirt"
+4. Share the generated link with friends
+5. Recipients can add their messages to your shirt
 
-### Gömlek Rengini Değiştirme
+## Customization
 
-`SignMyShirt.jsx` dosyasında SVG gradient'ını düzenle:
+### Shirt Color
+
+Modify the SVG gradient in `SignMyShirt.jsx`:
 
 ```jsx
-<linearGradient id="shirtFabric" ...>
-  <stop offset="0%" stopColor="#YENI_RENK" />
-  ...
+<linearGradient id="shirtFabric" x1="0%" y1="0%" x2="100%" y2="100%">
+  <stop offset="0%" stopColor="#YOUR_COLOR_1" />
+  <stop offset="50%" stopColor="#YOUR_COLOR_2" />
+  <stop offset="100%" stopColor="#YOUR_COLOR_3" />
 </linearGradient>
 ```
 
-### Okul Logosu Ekleme
+### School Logo
 
-Firebase'e logo URL'i ekle veya `updateSchoolLogo` fonksiyonunu kullan.
+Use the `updateSchoolLogo` function from hooks:
 
-## 🤝 Katkıda Bulunma
+```javascript
+import { updateSchoolLogo } from './firebase/hooks';
 
-1. Fork'la
-2. Feature branch oluştur (`git checkout -b feature/amazing-feature`)
-3. Commit et (`git commit -m 'Add amazing feature'`)
-4. Push et (`git push origin feature/amazing-feature`)
-5. Pull Request aç
+await updateSchoolLogo(shirtId, 'https://your-logo-url.png');
+```
 
-## 📄 Lisans
+## API Reference
 
-MIT License - istediğin gibi kullanabilirsin!
+### Hooks
 
-## 💖 Teşekkürler
+| Function | Parameters | Description |
+|----------|------------|-------------|
+| `useShirt(shirtId)` | `string` | Subscribe to shirt data |
+| `useSignatures(shirtId)` | `string` | Subscribe to signatures collection |
+| `createShirt(name, year, school)` | `string, number, string` | Create new shirt document |
+| `addSignature(shirtId, data)` | `string, object` | Add signature to shirt |
+| `updateSignaturePosition(shirtId, sigId, x, y)` | `string, string, number, number` | Update signature coordinates |
 
-Mezuniyet sezonu için yapıldı! 🎓
+## Contributing
 
----
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/new-feature`)
+3. Commit changes (`git commit -m 'Add new feature'`)
+4. Push to branch (`git push origin feature/new-feature`)
+5. Open a Pull Request
 
-**Sorular?** Issue aç veya [email] ile ulaş.
+## License
+
+MIT License 
+
+## Contact
+
+Denizhan Kalkan — denizhankalkan@outlook.com
+
+Project Link: [https://github.com/denizhankalkan/sign-my-shirt](https://github.com/denizhankalkan/sign-my-shirt)
